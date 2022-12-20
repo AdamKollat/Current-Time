@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page styling -->
+    <style>
+        body {
+            background-color: #1c2833;
+            text-align: center;
+            color: #01ff70;
+        }
+
+        h2 {
+            margin: 50px 100px;
+        }
+
+        #header {
+            margin-bottom: 200px;
+            text-decoration: underline;
+        }
+    </style>
+    <!-- Page title -->
+    <title>Chuck Norris quotes</title>
+</head>
+
+<body>   
+    <!-- Container element for content added later -->
+    <div id="container">
+        <h2 id="header">This page generates a new Chuck Norris Joke every 10 seconds</h2>
+    </div>
+    <script>
+        const container = document.getElementById("container"); // Access container element
+        let child = document.createElement("H2");   // Create new H2 element
+        container.appendChild(child);      // Append new H2 element to container
+        // Create a function that generates a new joke using fetch 
+        function AddNewJoke() {       
+        fetch("https://api.chucknorris.io/jokes/random")    // Access API 
+            .then(res => res.json())    // Convert result to JSON format
+            .then((result) => { 
+                child.innerHTML = result.value  // Update new element's innerHTML 
+            }),
+            (error) => {    // Catch and log errors
+                console.log(error)
+            }        
+        }
+
+        // Call the function so a joke is displayed on page load
+        AddNewJoke()
+        // Call function every 10 seconds
+        setInterval(AddNewJoke, 10000);
+    </script>
+</body>
+
+</html>
